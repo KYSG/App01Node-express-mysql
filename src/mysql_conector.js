@@ -1,6 +1,7 @@
 
 //Importar mysql
 import mysql from 'mysql'
+let todos 
 
 //Crear la conexion 
 const conector = mysql.createConnection({
@@ -27,8 +28,18 @@ const agregarContacto = (numero, nombre) => {
     })
 }
 
+const obtenerContactos = () => {
+    const sql = 'SELECT * FROM agend'
+    conector.query(sql, function (err, result,field){
+        todos = result
+    })
+    return todos
+}
+
+const borrarContacto = id => {
+    const sql = `DELETE FROM agend where id_agenda=${id}`
+    conector.query(sql)
+}
 
 
-
-
-export {conectar, agregarContacto}
+export {conectar, agregarContacto, obtenerContactos, borrarContacto}
